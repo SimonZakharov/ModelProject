@@ -1,8 +1,7 @@
 {
   "profiles": {
     "FeatureProject": {
-      "commandName": "Project",
-      "commandLineArgs": "C:/Users/master/Desktop/file.txt C:/Users/master/Desktop/out.txt df"
+      "commandName": "Project"
     }
   }
 }

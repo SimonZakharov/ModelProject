@@ -18,7 +18,7 @@ namespace ModelProject
         /// </summary>
         public double I { get; protected set; }
         /// <summary>
-        /// Температура двигателя
+        /// Температура двигателя.
         /// </summary>
         public double Temperature { get; protected set; }
         /// <summary>

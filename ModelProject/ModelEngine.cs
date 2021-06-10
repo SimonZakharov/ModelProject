@@ -40,6 +40,23 @@ namespace ModelProject
         {
             MVPairs = keyValuePairs.OrderBy(key => key.Key).ToDictionary((keyItem) => keyItem.Key, (valueItem) => valueItem.Value);
         }
+        /// <summary>
+        /// Вычисление ускорения.
+        /// </summary>
+        /// <param name="velocity">Скорость вращения коленвала.</param>
+        /// <returns></returns>
+        public override void SetAcceleration(double velocity)
+        {
+            double m = 0.0;
+            foreach (var v in MVPairs)
+            {
+                if (v.Key > velocity)
+                    break;
+                else
+                    m = v.Value;
+            }
+            Acceleration = m / I;
+        }
         #endregion
         #region Конструкторы
         static ModelEngine()
@@ -256,23 +273,6 @@ namespace ModelProject
             return m * Hm + velocity * velocity * Hv;
         }
         /// <summary>
-        /// Вычисление ускорения.
-        /// </summary>
-        /// <param name="velocity">Скорость вращения коленвала.</param>
-        /// <returns></returns>
-        public override void SetAcceleration(double velocity)
-        {
-            double m = 0.0;
-            foreach (var v in MVPairs)
-            {
-                if (v.Key > velocity)
-                    break;
-                else
-                    m = v.Value;
-            }
-            Acceleration = m / I;
-        }
-        /// <summary>
         /// Вычисление скорости охлаждения двигателя.
         /// </summary>
         /// <param name="outerTemp">Температура окружающей среды.</param>
@@ -284,7 +284,7 @@ namespace ModelProject
         }
         public override string ToString()
         {
-            string engine = string.Format("Момент инерации = {0} кг*м2\nТемпература перегрева = {1}\n", I, TOverheat)   +
+            string engine = string.Format("Момент инерции = {0} кг*м2\nТемпература перегрева = {1} C\n", I, TOverheat)   +
                             string.Format("Коэфф.зависимости нагрева от крутящего момента = {0}\n", Hm)                 +
                             string.Format("Коэфф.зависимости нагрева от скорости вращения = {0}\n", Hv)                 +
                             string.Format("Коэфф.зависимости охлаждения = {0}\n", C);
