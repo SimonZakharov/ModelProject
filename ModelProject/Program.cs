@@ -34,12 +34,12 @@ namespace ModelProject
                 Console.WriteLine(TempErrorMessage);
                 Console.Write("Температура окружающей среды = "); outerTemperature = double.TryParse(Console.ReadLine(), out t) ? t : double.MinValue;
             }
-            Engine engine = Engine.TryReadEngine(out Engine e, source) ? e : null;
+            ModelEngine engine = ModelEngine.TryReadEngine(out ModelEngine e, source) ? e : null;
             if (engine == null)
                 return 1;
             //  моделирование и вывод промежуточных результатов
-            var timeTemp = engine.CalculatePrintModel(outerTemperature, target);
-            string respond = timeTemp.Item1 == Engine.MAX_TIME ? $"Двигатель не перегревается.\nМаксимальная достигнутая температура = {timeTemp.Item2} градусов Цельсия." 
+            var timeTemp = engine.StartEngine(outerTemperature, target);
+            string respond = timeTemp.Item1 == ModelEngine.MAX_TIME ? $"Двигатель не перегревается.\nМаксимальная достигнутая температура = {timeTemp.Item2} градусов Цельсия." 
                                                                : $"Время работы двигателя = {timeTemp.Item1} c.\nДостигнутая температура = {timeTemp.Item2} градусов Цельсия.";
             Console.WriteLine(respond);
             return 0;
